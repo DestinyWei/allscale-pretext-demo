@@ -1,0 +1,776 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AllScale × Pretext 中文版</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=Source+Serif+4:ital,wght@0,500;0,600;1,500&family=Noto+Sans+SC:wght@500;600;700;800&family=Noto+Serif+SC:wght@500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    * { box-sizing: border-box; }
+    :root {
+      --bg-0: #f2fff8;
+      --bg-1: #dcf8ea;
+      --bg-2: #e7fff3;
+      --ink: #041f12;
+      --ink-soft: #1d4131;
+      --muted: #4f6d60;
+      --line: #9fd8be;
+      --brand: #00a76f;
+      --brand-soft: #daf8ea;
+      --accent: #89f26b;
+      --card: #ffffffdd;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
+      background: radial-gradient(circle at 18% 20%, #ffffff 0, var(--bg-0) 42%, var(--bg-1) 100%);
+      color: var(--ink);
+      font-family: "Noto Sans SC", "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    #stage {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      isolation: isolate;
+      background-image:
+        radial-gradient(circle at 12% 12%, rgb(0 167 111 / 0.14) 0%, transparent 38%),
+        radial-gradient(circle at 84% 18%, rgb(57 196 255 / 0.1) 0%, transparent 34%),
+        radial-gradient(circle at 78% 84%, rgb(137 242 107 / 0.15) 0%, transparent 42%),
+        linear-gradient(140deg, #f4fff9 0%, #ebfff4 42%, #e0f9ea 100%);
+    }
+
+    #stage::after {
+      content: "";
+      position: absolute;
+      width: 520px;
+      height: 520px;
+      right: -120px;
+      top: -140px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgb(0 167 111 / 0.2) 0%, rgb(0 167 111 / 0) 68%);
+      filter: blur(10px);
+      pointer-events: none;
+      z-index: 0;
+      animation: floatAura 13s ease-in-out infinite alternate;
+    }
+
+    #stage::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background-image: radial-gradient(circle, rgb(0 167 111 / 0.06) 0.8px, transparent 0.8px);
+      background-size: 28px 28px;
+      mask-image: radial-gradient(circle at 50% 50%, rgb(0 0 0 / 0.9) 0%, rgb(0 0 0 / 0.25) 70%, transparent 100%);
+      z-index: 0;
+    }
+
+    @keyframes floatAura {
+      from { transform: translate3d(0, 0, 0); }
+      to { transform: translate3d(-28px, 18px, 0); }
+    }
+
+    .panel {
+      position: absolute;
+      inset: 22px;
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      background: linear-gradient(180deg, rgb(255 255 255 / 0.92) 0%, rgb(247 255 251 / 0.9) 100%);
+      box-shadow:
+        0 24px 80px rgb(0 51 34 / 0.14),
+        inset 0 1px 0 rgb(255 255 255 / 0.7);
+      backdrop-filter: blur(4px);
+      z-index: 1;
+      overflow: hidden;
+    }
+
+    .panel::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      border-radius: 24px;
+      border: 1px solid rgb(255 255 255 / 0.5);
+    }
+
+    .line {
+      position: absolute;
+      white-space: pre;
+      display: inline-block;
+      overflow: visible;
+      user-select: text;
+      cursor: text;
+      z-index: 3;
+      color: #173e2f;
+      font: 560 15px/1 "Noto Serif SC", "Source Serif 4", Georgia, serif;
+      letter-spacing: 0;
+    }
+
+    .em {
+      font-weight: inherit;
+      border-radius: 3px;
+      box-decoration-break: clone;
+      -webkit-box-decoration-break: clone;
+      text-decoration: none;
+      text-shadow: 0 0 0.01px currentColor;
+    }
+    .em-brand {
+      color: #0b6846;
+      background-image: linear-gradient(180deg, transparent 42%, rgb(0 167 111 / 0.34) 42%);
+      box-shadow: inset 0 -2px 0 rgb(0 118 77 / 0.5);
+    }
+    .em-lime {
+      color: #285b26;
+      background-image: linear-gradient(180deg, transparent 42%, rgb(137 242 107 / 0.44) 42%);
+      box-shadow: inset 0 -2px 0 rgb(107 185 79 / 0.56);
+    }
+    .em-sky {
+      color: #174a72;
+      background-image: linear-gradient(180deg, transparent 42%, rgb(103 186 255 / 0.4) 42%);
+      box-shadow: inset 0 -2px 0 rgb(66 141 225 / 0.58);
+    }
+
+    .line.lead {
+      color: var(--ink);
+      font-weight: 600;
+      font-size: 17px;
+    }
+
+    .line.kicker {
+      color: var(--muted);
+      font: 700 11px/1 "Manrope", sans-serif;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .line.section {
+      color: var(--ink);
+      font: 800 21px/1 "Manrope", sans-serif;
+      letter-spacing: -0.02em;
+      text-shadow: 0 1px 0 rgb(255 255 255 / 0.8);
+    }
+
+    .line.quote-kicker {
+      color: #58786a;
+      font: 700 11px/1 "Manrope", sans-serif;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .line.pullquote {
+      color: #1b4f3a;
+      font: 620 30px/1 "Noto Serif SC", "Source Serif 4", Georgia, serif;
+      letter-spacing: 0;
+      overflow: visible;
+    }
+
+    .line.sub {
+      color: var(--muted);
+      font: 600 13px/1 "Manrope", sans-serif;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+    }
+
+    .chip {
+      position: absolute;
+      z-index: 4;
+      padding: 7px 11px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: var(--brand-soft);
+      color: #0d5f40;
+      font: 700 11px/1 "Manrope", sans-serif;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      white-space: nowrap;
+      pointer-events: none;
+    }
+
+    .rule {
+      position: absolute;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgb(0 167 111 / 0.35), transparent);
+      z-index: 2;
+    }
+
+    .hero-title {
+      position: absolute;
+      z-index: 5;
+      color: #073823;
+      margin: 0;
+      font: 800 74px/0.9 "Noto Sans SC", "Manrope", sans-serif;
+      letter-spacing: -0.055em;
+      text-shadow: 0 10px 22px rgb(5 72 49 / 0.18);
+    }
+
+    .hero-sub {
+      position: absolute;
+      z-index: 5;
+      margin: 0;
+      color: #1f6648;
+      font: 700 28px/1 "Noto Serif SC", "Source Serif 4", Georgia, serif;
+      letter-spacing: -0.01em;
+    }
+
+    .hero-desc {
+      position: absolute;
+      z-index: 5;
+      margin: 0;
+      max-width: 520px;
+      color: #44685a;
+      font: 600 14px/1.4 "Noto Sans SC", "Manrope", sans-serif;
+      letter-spacing: 0.01em;
+    }
+
+    .column-kicker {
+      position: absolute;
+      z-index: 5;
+      font: 700 11px/1 "Manrope", sans-serif;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #678277;
+      white-space: nowrap;
+      opacity: 0.92;
+    }
+
+    #logo-wrap {
+      position: absolute;
+      z-index: 6;
+      width: 106px;
+      height: 106px;
+      border-radius: 28px;
+      border: 1px solid rgb(0 167 111 / 0.33);
+      background: linear-gradient(170deg, #ffffff 0%, #ebfff5 100%);
+      box-shadow:
+        0 12px 30px rgb(0 92 58 / 0.24),
+        0 0 0 1px rgb(255 255 255 / 0.5) inset;
+      display: grid;
+      place-items: center;
+      cursor: grab;
+      user-select: none;
+      touch-action: none;
+    }
+
+    #logo-wrap.dragging { cursor: grabbing; }
+
+    #logo {
+      width: 76px;
+      height: 76px;
+      object-fit: contain;
+      pointer-events: none;
+      filter: drop-shadow(0 2px 3px rgb(0 50 30 / 0.14));
+    }
+
+    #highlights, #decor, #copy {
+      position: absolute;
+      inset: 0;
+      clip-path: inset(22px round 24px);
+    }
+
+    #highlights { z-index: 2; pointer-events: none; display: none; }
+    #decor { z-index: 3; pointer-events: none; }
+    #copy { z-index: 4; }
+
+    @media (max-width: 980px) {
+      .hero-title { font-size: 56px; }
+      .hero-sub { font-size: 22px; }
+      .line { font-size: 14px; }
+      .line.lead { font-size: 16px; }
+      .line.pullquote { font-size: 24px; }
+    }
+  </style>
+</head>
+<body>
+  <div id="stage">
+    <div class="panel"></div>
+    <h1 id="hero-title" class="hero-title">AllScale</h1>
+    <p id="hero-sub" class="hero-sub">自托管稳定币数字银行</p>
+    <p id="hero-desc" class="hero-desc">面向全球企业的即时跨境收款、开票与结算。</p>
+    <p id="kicker-left" class="column-kicker">摘要</p>
+    <p id="kicker-right" class="column-kicker">能力</p>
+    <div id="logo-wrap" aria-label="AllScale logo draggable obstacle">
+      <img id="logo" alt="AllScale logo" src="https://cdn.prod.website-files.com/6779cec685b83bf2876d67f3/68654fbb0d7c064b66f3d50b_AllScale-icon.png" />
+    </div>
+    <div id="decor"></div>
+    <div id="highlights"></div>
+    <div id="copy"></div>
+  </div>
+
+  <script type="module">
+    import { prepareWithSegments, layoutNextLine } from 'https://esm.sh/@chenglou/pretext@0.0.3';
+
+    const stage = document.getElementById('stage');
+    const panel = document.querySelector('.panel');
+    const heroTitle = document.getElementById('hero-title');
+    const heroSub = document.getElementById('hero-sub');
+    const heroDesc = document.getElementById('hero-desc');
+    const kickerLeft = document.getElementById('kicker-left');
+    const kickerRight = document.getElementById('kicker-right');
+    const logoWrap = document.getElementById('logo-wrap');
+    const copyLayer = document.getElementById('copy');
+    const decorLayer = document.getElementById('decor');
+
+    const FONT_LINE = '500 15px "Noto Serif SC", "Source Serif 4", Georgia, serif';
+    const FONT_LEAD = '650 17px "Noto Serif SC", "Source Serif 4", Georgia, serif';
+    const FONT_SECTION = '800 21px "Noto Sans SC", "Manrope", sans-serif';
+    const FONT_QUOTE_KICKER = '700 11px "Noto Sans SC", "Manrope", sans-serif';
+    const FONT_QUOTE = '620 30px "Noto Serif SC", "Source Serif 4", Georgia, serif';
+
+    const BLOCKS = [
+      { text: '一句话介绍', className: 'line section', font: FONT_SECTION, lineHeight: 30, gapAfter: 8, side: 'left' },
+      {
+        text: 'AllScale是全球首个面向全球企业的自托管稳定币数字银行，支持即时跨境收款、开票与批量付款。',
+        className: 'line lead',
+        font: FONT_LEAD,
+        lineHeight: 28,
+        gapAfter: 22,
+        side: 'left',
+        highlights: [
+          { needle: '自托管稳定币数字银行', tone: 'brand' },
+          { needle: '即时跨境收款', tone: 'lime' },
+          { needle: '开票与批量付款', tone: 'sky' }
+        ]
+      },
+      { text: '项目简介', className: 'line section', font: FONT_SECTION, lineHeight: 30, gapAfter: 8, side: 'left' },
+      {
+        text: 'AllScale是首个面向全球企业（如自由职业者、内容创作者与AI智能体）的自托管稳定币数字银行。平台提供内置开票、收银与合规能力的钱包体系。无注册门槛、无拒付风险、无到账延迟，10秒即可完成账户设置，并在全球范围内即时收取稳定币。',
+        className: 'line',
+        font: FONT_LINE,
+        lineHeight: 28,
+        gapAfter: 18,
+        side: 'left',
+        highlights: [
+          { needle: '自托管钱包体系', tone: 'brand' },
+          { needle: '开票、收银与合规能力', tone: 'sky' },
+          { needle: '10秒即可完成账户设置', tone: 'lime' }
+        ]
+      },
+      { text: '核心优势', className: 'line section', font: FONT_SECTION, lineHeight: 30, gapAfter: 6, side: 'left' },
+      {
+        text: '1.真正自托管：不同于传统金融或托管型数字银行，AllScale在保证流畅体验的同时，让你始终完整掌控资金所有权。',
+        className: 'line',
+        font: FONT_LINE,
+        lineHeight: 28,
+        gapAfter: 10,
+        side: 'left',
+        highlights: [{ needle: '真正自托管', tone: 'brand' }]
+      },
+      {
+        text: '2.让区块链在后台运行：我们通过账户抽象和AI金融助手，把复杂的链上操作都放到后台处理。用户不用管理私钥，也不用操心Gas费，只需用Passkey登录，就能直接完成交易。',
+        className: 'line',
+        font: FONT_LINE,
+        lineHeight: 28,
+        gapAfter: 10,
+        side: 'right',
+        highlights: [
+          { needle: '让区块链在后台运行', tone: 'sky' },
+          { needle: 'Passkey登录', tone: 'lime' }
+        ]
+      },
+      {
+        text: '3.真正解决实际问题的平台：我们不只是提供一条支付通道，更是在应用层帮远程工作者解决实际业务问题，比如开票、KYT合规检查和资金提现。',
+        className: 'line',
+        font: FONT_LINE,
+        lineHeight: 28,
+        gapAfter: 16,
+        side: 'right',
+        highlights: [
+          { needle: '真正解决实际问题的平台', tone: 'brand' },
+          { needle: '开票、KYT合规检查和资金提现', tone: 'sky' }
+        ]
+      },
+      { text: '一句话介绍', className: 'line quote-kicker', font: FONT_QUOTE_KICKER, lineHeight: 18, gapAfter: 4, side: 'right' },
+      {
+        text: '“即时跨境收款，轻松开票与批量结算。”',
+        className: 'line pullquote',
+        font: FONT_QUOTE,
+        lineHeight: 40,
+        gapAfter: 14,
+        side: 'right'
+      },
+      { text: '投资方与生态伙伴', className: 'line section', font: FONT_SECTION, lineHeight: 30, gapAfter: 6, side: 'right' },
+      {
+        text: '- 种子轮领投：YZi Labs（Binance Labs）、Informed Ventures、Generative Ventures',
+        className: 'line',
+        font: FONT_LINE,
+        lineHeight: 28,
+        gapAfter: 5,
+        side: 'right',
+        highlights: [{ needle: 'YZi Labs（Binance Labs）', tone: 'lime' }]
+      },
+      {
+        text: '- 早期支持方：Amber Group、Draper Dragon、KuCoin Ventures、TDTC',
+        className: 'line',
+        font: FONT_LINE,
+        lineHeight: 28,
+        gapAfter: 5,
+        side: 'right'
+      },
+      {
+        text: '- 生态合作：BNB Chain 官方 Partner、EASY Residency Season 2',
+        className: 'line',
+        font: FONT_LINE,
+        lineHeight: 28,
+        gapAfter: 20,
+        side: 'right',
+        highlights: [{ needle: 'BNB Chain 官方 Partner', tone: 'brand' }]
+      }
+    ];
+
+    let preparedBlocks = [];
+    function rebuildPreparedBlocks() {
+      preparedBlocks = BLOCKS.map(block => ({
+        ...block,
+        prepared: prepareWithSegments(block.text, block.font)
+      }));
+    }
+
+    const logoState = {
+      x: 0,
+      y: 0,
+      size: 106,
+      drag: null,
+      vx: 108,
+      vy: 86
+    };
+
+    let motionBounds = null;
+
+    function logoObstacle() {
+      return {
+        x: logoState.x,
+        y: logoState.y,
+        w: logoState.size,
+        h: logoState.size,
+        padX: 18,
+        padY: 10,
+        radius: logoState.size * 0.42
+      };
+    }
+
+    function obstacleInterval(obstacle, bandTop, bandBottom) {
+      const cy = obstacle.y + obstacle.h / 2;
+      const cx = obstacle.x + obstacle.w / 2;
+      const top = bandTop - obstacle.padY;
+      const bottom = bandBottom + obstacle.padY;
+      if (top >= cy + obstacle.radius || bottom <= cy - obstacle.radius) return null;
+      const minDy = cy >= top && cy <= bottom ? 0 : (cy < top ? top - cy : cy - bottom);
+      if (minDy >= obstacle.radius) return null;
+      const dx = Math.sqrt(obstacle.radius * obstacle.radius - minDy * minDy);
+      return {
+        left: cx - dx - obstacle.padX,
+        right: cx + dx + obstacle.padX
+      };
+    }
+
+    function carve(base, blocked) {
+      let slots = [base];
+      for (const b of blocked) {
+        const next = [];
+        for (const slot of slots) {
+          if (b.right <= slot.left || b.left >= slot.right) {
+            next.push(slot);
+            continue;
+          }
+          if (b.left > slot.left) next.push({ left: slot.left, right: b.left });
+          if (b.right < slot.right) next.push({ left: b.right, right: slot.right });
+        }
+        slots = next;
+      }
+      return slots.filter(slot => slot.right - slot.left >= 68);
+    }
+
+    function chooseSlot(slots, columnIndex) {
+      let best = slots[0];
+      for (let i = 1; i < slots.length; i++) {
+        const candidate = slots[i];
+        const bestW = best.right - best.left;
+        const nextW = candidate.right - candidate.left;
+        if (nextW > bestW) best = candidate;
+        else if (nextW === bestW) {
+          if (columnIndex === 0 && candidate.left > best.left) best = candidate;
+          if (columnIndex === 1 && candidate.left < best.left) best = candidate;
+        }
+      }
+      return best;
+    }
+
+    function layoutFlow(regions, blocks) {
+      const lines = [];
+      let col = 0;
+      let y = regions[0].y;
+      const obstacle = logoObstacle();
+
+      function nextColumn() {
+        col++;
+        if (col >= regions.length) return false;
+        y = regions[col].y;
+        return true;
+      }
+
+      for (const block of blocks) {
+        let cursor = { segmentIndex: 0, graphemeIndex: 0 };
+
+        while (true) {
+          if (col >= regions.length) return { lines };
+          const region = regions[col];
+          if (y + block.lineHeight > region.y + region.h) {
+            if (!nextColumn()) return { lines };
+            continue;
+          }
+
+          const bandTop = y;
+          const bandBottom = y + block.lineHeight;
+          const blocked = [];
+          const interval = obstacleInterval(obstacle, bandTop, bandBottom);
+          if (interval && interval.right > region.x && interval.left < region.x + region.w) {
+            blocked.push({
+              left: Math.max(region.x, interval.left),
+              right: Math.min(region.x + region.w, interval.right)
+            });
+          }
+          const slots = carve({ left: region.x, right: region.x + region.w }, blocked);
+          if (slots.length === 0) {
+            y += block.lineHeight;
+            continue;
+          }
+
+          const slot = chooseSlot(slots, col);
+          const slotWidth = slot.right - slot.left;
+          const isPullquote = block.className.includes('pullquote');
+          const isSection = block.className.includes('section');
+          const layoutReserve = isPullquote ? 14 : (isSection ? 6 : 4);
+          const renderReserve = 0;
+          const lineWidth = Math.max(20, Math.floor(slotWidth - layoutReserve));
+          const renderWidth = Math.max(20, Math.floor(slotWidth - renderReserve));
+          const line = layoutNextLine(block.prepared, cursor, lineWidth);
+          if (line === null) break;
+
+          const renderedText = line.text.trimEnd();
+          lines.push({
+            x: Math.round(slot.left),
+            y: Math.round(y),
+            text: renderedText,
+            className: block.className,
+            font: block.font,
+            lineHeight: block.lineHeight,
+            maxWidth: renderWidth,
+            highlights: block.highlights ?? []
+          });
+
+          cursor = line.end;
+          y += block.lineHeight;
+        }
+
+        y += block.gapAfter;
+      }
+
+      return { lines };
+    }
+
+    function render() {
+      if (preparedBlocks.length === 0) return;
+      const w = stage.clientWidth;
+      const h = stage.clientHeight;
+      const panelInset = 22;
+      const panelX = panelInset;
+      const panelY = panelInset;
+      const panelW = w - panelInset * 2;
+      const panelH = h - panelInset * 2;
+
+      const isNarrow = w < 980;
+      const gutterX = isNarrow ? 22 : 34;
+      const topY = isNarrow ? 186 : 204;
+      const bottomPad = 102;
+      const columnStart = panelY + topY + (isNarrow ? 22 : 30);
+      const dividerX = Math.round(panelX + panelW / 2);
+      const dividerGap = isNarrow ? 0 : 14;
+
+      const leftRegion = {
+        x: panelX + gutterX,
+        y: columnStart,
+        w: isNarrow ? (panelW - gutterX * 2) : Math.max(220, dividerX - dividerGap - (panelX + gutterX) - 2),
+        h: panelH - (columnStart - panelY) - bottomPad
+      };
+      const rightRegion = {
+        x: isNarrow ? leftRegion.x : dividerX + dividerGap + 2,
+        y: columnStart,
+        w: isNarrow ? leftRegion.w : Math.max(220, panelX + panelW - gutterX - (dividerX + dividerGap + 2)),
+        h: panelH - (columnStart - panelY) - bottomPad
+      };
+      const regions = isNarrow ? [leftRegion] : [leftRegion, rightRegion];
+      const contentW = panelW - gutterX * 2;
+
+      heroTitle.style.left = `${panelX + gutterX}px`;
+      heroTitle.style.top = `${panelY + 30}px`;
+      heroSub.style.left = `${panelX + gutterX + 6}px`;
+      heroSub.style.top = `${panelY + 120}px`;
+      heroDesc.style.left = `${panelX + gutterX + 8}px`;
+      heroDesc.style.top = `${panelY + 176}px`;
+      if (kickerLeft) {
+        kickerLeft.style.left = `${leftRegion.x}px`;
+        kickerLeft.style.top = `${leftRegion.y - 32}px`;
+      }
+      if (kickerRight) {
+        kickerRight.style.left = `${rightRegion.x}px`;
+        kickerRight.style.top = `${rightRegion.y - 36}px`;
+        kickerRight.style.display = isNarrow ? 'none' : '';
+      }
+
+      const logoXDefault = panelX + panelW - logoState.size - (isNarrow ? 26 : 54);
+      const logoYDefault = panelY + (isNarrow ? 54 : 44);
+      if (logoState.x === 0 && logoState.y === 0) {
+        logoState.x = logoXDefault;
+        logoState.y = logoYDefault;
+      }
+
+      const minX = panelX + 12;
+      const maxX = panelX + panelW - logoState.size - 12;
+      const minY = panelY + 12;
+      const maxY = panelY + panelH - logoState.size - 12;
+      logoState.x = Math.max(minX, Math.min(maxX, logoState.x));
+      logoState.y = Math.max(minY, Math.min(maxY, logoState.y));
+      motionBounds = { minX, maxX, minY, maxY };
+
+      logoWrap.style.left = `${logoState.x}px`;
+      logoWrap.style.top = `${logoState.y}px`;
+
+      let lines;
+      if (isNarrow) {
+        ({ lines } = layoutFlow(regions, preparedBlocks));
+      } else {
+        const leftBlocks = preparedBlocks.filter(block => block.side !== 'right');
+        const rightBlocks = preparedBlocks.filter(block => block.side === 'right');
+        const leftResult = layoutFlow([leftRegion], leftBlocks);
+        const rightResult = layoutFlow([rightRegion], rightBlocks);
+        lines = leftResult.lines.concat(rightResult.lines);
+      }
+
+      copyLayer.innerHTML = lines.map(line => `<span class="${line.className}" style="left:${line.x}px;top:${line.y}px;width:${line.maxWidth}px;max-width:${line.maxWidth}px;font:${line.font};line-height:${line.lineHeight}px">${decorateText(line.text, line.highlights)}</span>`).join('');
+
+      decorLayer.innerHTML = [
+        `<div class="rule" style="left:${panelX + gutterX}px;top:${panelY + topY - 20}px;width:${contentW}px"></div>`,
+        !isNarrow ? `<div class="rule" style="left:${dividerX}px;top:${panelY + topY - 2}px;width:1px;height:${panelH - topY - 24}px;background:linear-gradient(180deg,transparent,rgb(0 167 111 / 0.34),transparent)"></div>` : ''
+      ].join('');
+
+    }
+
+    function escapeHtml(text) {
+      return text
+        .replaceAll('&', '&amp;')
+        .replaceAll('<', '&lt;')
+        .replaceAll('>', '&gt;')
+        .replaceAll('"', '&quot;');
+    }
+
+    function decorateText(text, marks) {
+      if (!marks || marks.length === 0) return escapeHtml(text);
+      let cursor = 0;
+      let html = '';
+      while (cursor < text.length) {
+        let bestIndex = -1;
+        let bestMark = null;
+        for (const mark of marks) {
+          const idx = text.indexOf(mark.needle, cursor);
+          if (idx === -1) continue;
+          if (bestIndex === -1 || idx < bestIndex || (idx === bestIndex && mark.needle.length > bestMark.needle.length)) {
+            bestIndex = idx;
+            bestMark = mark;
+          }
+        }
+        if (bestIndex === -1 || !bestMark) {
+          html += escapeHtml(text.slice(cursor));
+          break;
+        }
+        html += escapeHtml(text.slice(cursor, bestIndex));
+        html += `<span class="em em-${bestMark.tone}">${escapeHtml(bestMark.needle)}</span>`;
+        cursor = bestIndex + bestMark.needle.length;
+      }
+      return html;
+    }
+
+    let scheduled = false;
+    function scheduleRender() {
+      if (scheduled) return;
+      scheduled = true;
+      requestAnimationFrame(() => {
+        scheduled = false;
+        render();
+      });
+    }
+
+    logoWrap.addEventListener('pointerdown', event => {
+      logoWrap.classList.add('dragging');
+      logoState.drag = {
+        id: event.pointerId,
+        dx: event.clientX - logoState.x,
+        dy: event.clientY - logoState.y
+      };
+      logoWrap.setPointerCapture(event.pointerId);
+      event.preventDefault();
+    });
+
+    logoWrap.addEventListener('pointermove', event => {
+      if (!logoState.drag || logoState.drag.id !== event.pointerId) return;
+      logoState.x = event.clientX - logoState.drag.dx;
+      logoState.y = event.clientY - logoState.drag.dy;
+      scheduleRender();
+    });
+
+    function finishDrag(event) {
+      if (!logoState.drag || logoState.drag.id !== event.pointerId) return;
+      logoWrap.classList.remove('dragging');
+      logoState.drag = null;
+      scheduleRender();
+    }
+
+    logoWrap.addEventListener('pointerup', finishDrag);
+    logoWrap.addEventListener('pointercancel', finishDrag);
+
+    window.addEventListener('resize', scheduleRender);
+    rebuildPreparedBlocks();
+    document.fonts.ready.then(() => {
+      rebuildPreparedBlocks();
+      scheduleRender();
+    });
+
+    let lastMoveAt = performance.now();
+    function animateLogo(now) {
+      if (!logoState.drag && motionBounds) {
+        const dt = Math.min(0.05, (now - lastMoveAt) / 1000);
+        logoState.x += logoState.vx * dt;
+        logoState.y += logoState.vy * dt;
+
+        if (logoState.x <= motionBounds.minX) {
+          logoState.x = motionBounds.minX;
+          logoState.vx = Math.abs(logoState.vx);
+        } else if (logoState.x >= motionBounds.maxX) {
+          logoState.x = motionBounds.maxX;
+          logoState.vx = -Math.abs(logoState.vx);
+        }
+
+        if (logoState.y <= motionBounds.minY) {
+          logoState.y = motionBounds.minY;
+          logoState.vy = Math.abs(logoState.vy);
+        } else if (logoState.y >= motionBounds.maxY) {
+          logoState.y = motionBounds.maxY;
+          logoState.vy = -Math.abs(logoState.vy);
+        }
+        scheduleRender();
+      }
+      lastMoveAt = now;
+      requestAnimationFrame(animateLogo);
+    }
+
+    requestAnimationFrame(animateLogo);
+    scheduleRender();
+  </script>
+</body>
+</html>
